@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 const authRoutes = require('./routes/authentication');
 const employeeRoutes = require('./routes/employee');
 
+app.use('/', 'Welcome to API User');
 app.use('/authentication', authRoutes);
 app.use('/employee', employeeRoutes);
 
