@@ -8,10 +8,11 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 // Routes
+const homeRoutes = require('./routes/home');
 const authRoutes = require('./routes/authentication');
 const employeeRoutes = require('./routes/employee');
 
-app.use('/', 'Welcome to API User');
+app.use('/', homeRoutes);
 app.use('/authentication', authRoutes);
 app.use('/employee', employeeRoutes);
 
