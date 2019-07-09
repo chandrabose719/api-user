@@ -15,7 +15,7 @@ router.post('/login', function(req, res, next){
 	var check_password = req.body.user_password;
 	var validation_result = authLoginValidation(req.body);
 	if(validation_result.error){
-		res.status(400).json({
+		res.status(422).json({
 			result: 'error',
 			message: validation_result.error.details[0].message
 		});
@@ -35,13 +35,13 @@ router.post('/login', function(req, res, next){
 				    			expiresIn: "10m"
 				    		}
 				    	);
-				    	res.status(200).json({
+				    	res.status(201).json({
 							result: 'success',
 							data: token,
 							massage: 'Account LoggedIn!'
 						});
 				    }else{
-				    	res.status(200).json({
+				    	res.status(422).json({
 							result: 'error',
 							data: req.body,
 							massage: 'Password is incorrect, check password!'
@@ -49,7 +49,7 @@ router.post('/login', function(req, res, next){
 				    }
 				});	
 			}else{
-				res.status(200).json({
+				res.status(422).json({
 					result: 'error',
 					data: req.body,
 					massage: 'There is no account for this email!'
@@ -63,7 +63,7 @@ router.post('/login', function(req, res, next){
 router.post('/register', function(req, res, next){
 	var validation_result = authRegValidation(req.body);
 	if(validation_result.error){
-		res.status(200).json({
+		res.status(422).json({
 			result: 'error',
 			message: validation_result.error.details[0].message
 		});
@@ -78,7 +78,7 @@ router.post('/register', function(req, res, next){
 					});
 					auth_data.save()
 					.then(function(saved_result){
-						res.status(200).json({
+						res.status(201).json({
 							result: 'success',
 							data: saved_result,
 							message: 'Auth registered!'	
@@ -87,7 +87,7 @@ router.post('/register', function(req, res, next){
 					.catch(next);
 				});	
 			}else{
-				res.status(200).json({
+				res.status(422).json({
 					result: 'error',
 					data: req.body,
 					message: 'Email already exists!'		

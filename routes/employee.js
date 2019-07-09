@@ -18,7 +18,7 @@ router.get('/', function(req, res, next){
 				data: emp_result
 			});
 		}else{
-			res.status(400).json({
+			res.status(422).json({
 				result: 'error',
 				message: 'There is no employee details!',
 				data: emp_result
@@ -40,7 +40,7 @@ router.get('/:id', function(req, res, next){
 				data: reg_result,
 			});
 		}else{
-			res.status(400).json({
+			res.status(422).json({
 				result: 'error',
 				message: 'There is no employee details!'
 			});
@@ -53,7 +53,7 @@ router.get('/:id', function(req, res, next){
 router.post('/', function(req, res, next){
 	var validation_result = empRegValidation(req.body);
 	if(validation_result.error){
-		res.status(400).json({
+		res.status(422).json({
 			result: 'error',
 			message: validation_result.error.details[0].message
 		});
@@ -69,7 +69,7 @@ router.post('/', function(req, res, next){
 					});
 		  			employee_data.save()
 					.then(function(saved_result){
-						res.status(200).json({
+						res.status(201).json({
 							result: 'success',
 							data: saved_result,
 							message: 'Employee registered!'	
@@ -78,7 +78,7 @@ router.post('/', function(req, res, next){
 					.catch(next);
 				});
 			}else{
-				res.status(200).json({
+				res.status(422).json({
 					result: 'error',
 					data: req.body,
 					message: 'Email already exists!'		
@@ -104,7 +104,7 @@ router.put('/', function(req, res, next){
 				});
 			});
 		}else{
-			res.status(201).json({
+			res.status(422).json({
 				result: 'error',
 				data: employee_data,
 				message: 'Data not updated, try again!'	
@@ -129,7 +129,7 @@ router.put('/:id', function(req, res, next){
 				});
 			});
 		}else{
-			res.status(201).json({
+			res.status(422).json({
 				result: 'error',
 				data: employee_data,
 				message: 'Data not updated, try again!'	
